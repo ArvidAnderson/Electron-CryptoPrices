@@ -13,14 +13,16 @@ let addWindow;
 // Listen for app to be ready, when the app is ready run function
 app.on('ready', function(){
     // Create new main window
-    mainWindow = new BrowserWindow(
-        {
-            webPreferences: {
-                contextIsolation: false,
-                nodeIntegration: true
-            }
+    mainWindow = new BrowserWindow({
+        title:'GAZE @ CRYPTO™️',
+        frame: false, // Removes the frame
+        autoHideMenuBar: true, // Auto hides menu bar for mac os
+        webPreferences: {
+            enableRemoteModule: true, //Need to be enabled for custom navbar to work
+            contextIsolation: false,
+            nodeIntegration:true
         }
-    );
+    });
     //Loading the html file
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'mainWindow.html'),
@@ -45,7 +47,10 @@ function createAddWindow() {
         width: 300,
         height: 200,
         title:'Add Crypto',
+        frame: false, // Removes the frame
+        autoHideMenuBar: true, // Auto hides menu bar for mac os
         webPreferences: {
+            enableRemoteModule: true, //Need to be enabled for custom navbar to work
             contextIsolation: false,
             nodeIntegration:true
         }
@@ -53,7 +58,6 @@ function createAddWindow() {
     
     //Turns off the menu bar for this specefic window
     addWindow.setMenuBarVisibility(false)
-
     // Loading the html file
     addWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'addWindow.html'),

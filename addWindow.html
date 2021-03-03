@@ -3,6 +3,7 @@
 <head>
     <title>Add Crypto to watch</title>
     <link rel="stylesheet" href="assets/css/materialize.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
     <div class="container">
@@ -12,7 +13,7 @@
             </div>
             <div class="input-field col s12">
                 <select class="browser-default" id="crypto" name="crypto">
-                    <option value="">Choose crypto</option>
+                    <option disabled value="">Choose crypto</option>
                     <option value="bitcoin">Bitcoin</option>
                     <option value="ethereum">Ethereum</option>
                     <option value="ripple">Ripple</option>
@@ -22,7 +23,7 @@
                     <option value="stellar">Stellar Lumens</option>
                 </select>
             </div>
-            <button class="btn waves-effect waves-light" type="submit">Add</button>
+            <button class="custom-add-button btn waves-effect waves-light" type="submit">Add</button>
         </form>
     </div>
     <script>
@@ -37,6 +38,16 @@
             const crypto = document.querySelector('#crypto').value;
             ipcRenderer.send('crypto:add', crypto);
         }
+    </script>
+    <script>
+        // Custom navbar
+        const customTitlebar = require('custom-electron-titlebar');
+
+        new customTitlebar.Titlebar({
+            backgroundColor: customTitlebar.Color.fromHex('#0a84ff')
+        });
+        titlebar.dispose();
+
     </script>
 </body>
 </html>

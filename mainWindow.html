@@ -1,29 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Crypto Prices</title>
+    <title>GAZE @ CRYPTO™️</title>
     <link rel="stylesheet" href="assets/css/materialize.min.css">
     <link rel="stylesheet" href="assets/css/crypto_types.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
-    <nav>
-        <div class="nav-wrapper">
-            <a class="brand-logo center">Crypto Prices</a>
-        </div>
-    </nav>
     <!-- List where crypto adds with the functions below-->
     <ul></ul>
-
     <script>
         const electron = require('electron');
         const {ipcRenderer} = electron;
         const ul = document.querySelector('ul');
-
         //Catch add crypto
         ipcRenderer.on('crypto:add', function(e, crypto){
-            ul.className = 'collection';
+            ul.className = 'no-collection-border collection';
             const li = document.createElement('li');
-            li.className = `${crypto} collection-item`;
+            li.className = 'custom-li collection-item';
             const cryptoText = document.createTextNode(crypto);
             li.appendChild(cryptoText);
             ul.appendChild(li);
@@ -46,7 +41,14 @@
                 ul.className = '';
             }
         }
+    </script>
+    <script>
+        // Custom navbar
+        const customTitlebar = require('custom-electron-titlebar');
 
+        new customTitlebar.Titlebar({
+            backgroundColor: customTitlebar.Color.fromHex('#0a84ff')
+        });
     </script>
 </body>
 </html>

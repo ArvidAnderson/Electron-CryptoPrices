@@ -1,0 +1,30 @@
+body {
+    background-color: rgb(28, 28, 30);
+}
+
+.custom-header {
+    background-color: rgb(10, 132, 255) !important;
+}
+
+.custom-li {
+    color: white;
+    background-color: rgb(10, 132, 255) !important;
+    margin-bottom: 4px !important;
+    border-color: transparent !important;
+    padding-top: 35px !important;
+    padding-bottom: 35px !important;
+    border-radius: 10px;
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+}
+
+.no-collection-border {
+    border-color: transparent;
+}
+
+.custom-add-button {
+   background-color: rgb(10, 132, 255);
+}
+.custom-add-button:hover {
+    background-color: rgb(50, 150, 250);
+}
