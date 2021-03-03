@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>CryptoGlanze</title>
+    <title>Crypto Prices</title>
+    <link rel="stylesheet" href="assets/css/materialize.min.css">
 </head>
 <body>
-    <h1>CryptoGlanze</h1>
-    <ul>
+    <nav>
+        <div class="nav-wrapper">
+            <a class="brand-logo center">Crypto Prices</a>
+        </div>
+    </nav>
+    <!-- List where crypto adds with the functions below-->
+    <ul></ul>
 
-    </ul>
     <script>
         const electron = require('electron');
         const {ipcRenderer} = electron;
@@ -15,7 +20,9 @@
 
         //Catch add crypto
         ipcRenderer.on('crypto:add', function(e, crypto){
+            ul.className = 'collection';
             const li = document.createElement('li');
+            li.className = 'collection-item';
             const cryptoText = document.createTextNode(crypto);
             li.appendChild(cryptoText);
             ul.appendChild(li);
@@ -24,6 +31,9 @@
         //Clear watchlist
         ipcRenderer.on('watchlist:clear', function(){
             ul.innerHTML = '';
+            if(ul.children.length == 0){
+                ul.className = '';
+            }
         });
 
         // Remove one crypto from the watchlist
@@ -31,6 +41,9 @@
 
         function removeCrypto(e) {
             e.target.remove();
+            if(ul.children.length == 0){
+                ul.className = '';
+            }
         }
 
     </script>

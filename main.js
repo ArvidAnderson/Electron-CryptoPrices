@@ -1,11 +1,11 @@
-//https://www.youtube.com/watch?v=kN1Czs0m1SU
-//22:31
-
 const electron = require('electron');
 const url = require('url');
 const path = require('path');
 
 const {app, BrowserWindow, Menu, ipcMain} = electron;
+
+//SET ENV : production or sandbox
+process.env.NODE_ENV = 'sandbox';
 
 let mainWindow;
 let addWindow;
@@ -50,6 +50,10 @@ function createAddWindow() {
             nodeIntegration:true
         }
     });
+    
+    //Turns off the menu bar for this specefic window
+    addWindow.setMenuBarVisibility(false)
+
     // Loading the html file
     addWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'addWindow.html'),
@@ -77,6 +81,8 @@ const mainMenuTemplate = [
         submenu:[
             {
                 label: 'Add Crypto',
+                accelerator: process.platform == 'darwin' ? 'Command+G' : 
+                'Ctrl+G',
                 click(){
                     createAddWindow();
                 }

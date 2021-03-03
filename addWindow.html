@@ -2,15 +2,18 @@
 <html lang="en">
 <head>
     <title>Add Crypto to watch</title>
+    <link rel="stylesheet" href="assets/css/materialize.min.css">
 </head>
 <body>
-    <form>
-        <div>
-            <label>Select a crypto to watch</label>
-            <input type="text" id="crypto" autofocus>
-        </div>
-        <button type="submit">Add</button>
-    </form>
+    <div class="container">
+        <form>
+            <div>
+                <label>Select a crypto to watch</label>
+                <input type="text" id="crypto" autofocus>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit">Add</button>
+        </form>
+    </div>
     <script>
         const electron = require('electron');
         const {ipcRenderer} = electron;
