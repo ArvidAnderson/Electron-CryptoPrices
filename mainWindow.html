@@ -3,6 +3,7 @@
 <head>
     <title>Crypto Prices</title>
     <link rel="stylesheet" href="assets/css/materialize.min.css">
+    <link rel="stylesheet" href="assets/css/crypto_types.css">
 </head>
 <body>
     <nav>
@@ -22,7 +23,7 @@
         ipcRenderer.on('crypto:add', function(e, crypto){
             ul.className = 'collection';
             const li = document.createElement('li');
-            li.className = 'collection-item';
+            li.className = `${crypto} collection-item`;
             const cryptoText = document.createTextNode(crypto);
             li.appendChild(cryptoText);
             ul.appendChild(li);
