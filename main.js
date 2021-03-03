@@ -109,10 +109,11 @@ const mainMenuTemplate = [
     }
 ];
 
-// If on Mac, add an empty object to menu
-if(process.platform == 'darwin'){
-    mainMenuTemplate.unshift({});
-}
+//If on Mac, add an empty object to menu. [BUG FIX LATER]
+//if(process.platform == 'darwin'){
+//    mainMenuTemplate.unshift({});
+//}
+
 
 // Adding Developer tools item not in production moe
 if(process.env.NODE_ENV !== 'production'){
