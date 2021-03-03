@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CryptoGlanze</title>
+</head>
+<body>
+    <h1>CryptoGlanze</h1>
+    <ul>
+
+    </ul>
+    <script>
+        const electron = require('electron');
+        const {ipcRenderer} = electron;
+        const ul = document.querySelector('ul');
+
+        //Catch add crypto
+        ipcRenderer.on('crypto:add', function(e, crypto){
+            const li = document.createElement('li');
+            const cryptoText = document.createTextNode(crypto);
+            li.appendChild(cryptoText);
+            ul.appendChild(li);
+        });
+
+        //Clear watchlist
+        ipcRenderer.on('watchlist:clear', function(){
+            ul.innerHTML = '';
+        });
+
+        // Remove one crypto from the watchlist
+        ul.addEventListener('dblclick', removeCrypto);
+
+        function removeCrypto(e) {
+            e.target.remove();
+        }
+
+    </script>
+</body>
+</html>

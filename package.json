@@ -1,0 +1,22 @@
+{
+  "name": "electron-cryptoprices",
+  "version": "1.0.0",
+  "description": "An Electron app made for you to easily have a glance at the current crypto prices",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArvidAnderson/Electron-CryptoPrices.git"
+  },
+  "author": "Arvid Anderson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ArvidAnderson/Electron-CryptoPrices/issues"
+  },
+  "homepage": "https://github.com/ArvidAnderson/Electron-CryptoPrices#readme",
+  "dependencies": {
+    "electron": "^12.0.0"
+  }
+}
