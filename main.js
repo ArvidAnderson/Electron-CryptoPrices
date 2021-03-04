@@ -2,6 +2,11 @@ const electron = require('electron');
 const url = require('url');
 const path = require('path');
 
+//Database - -saves to appdata in json file
+const Store = require('electron-store');
+Store.initRenderer()
+
+
 const {app, BrowserWindow, Menu, ipcMain} = electron;
 
 //SET ENV : production or sandbox

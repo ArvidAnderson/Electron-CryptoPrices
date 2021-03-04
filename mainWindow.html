@@ -33,12 +33,14 @@
                         <img class="right" src="assets/cryptoicons/white/${crypto}.png" alt="">
                     </div> 
                 </div>`);
+                appendtoDatabase(crypto_names(crypto), crypto, result);
             });
             ul.appendChild(li);
         });
 
         //Clear watchlist
         ipcRenderer.on('watchlist:clear', function(){
+            cleardatabase(); //Belongs to renderer.js
             ul.innerHTML = '';
             if(ul.children.length == 0){
                 ul.className = '';
@@ -50,8 +52,8 @@
             document.getElementsByClassName('.crypto-prices').innerHTML = 'Dankster';
             console.log('GG')
         });
-
     </script>
+    <script src="renderer.js"></script>
     <script>
         // Custom navbar
         const customTitlebar = require('custom-electron-titlebar');
