@@ -14,7 +14,7 @@ let addWindow;
 app.on('ready', function(){
     // Create new main window
     mainWindow = new BrowserWindow({
-        title:'GAZE @ CRYPTO™️',
+        title:'GLANCE @ CRYPTO™️',
         frame: false, // Removes the frame
         autoHideMenuBar: true, // Auto hides menu bar for mac os
         webPreferences: {
@@ -98,6 +98,12 @@ const mainMenuTemplate = [
                 }
             },
             {
+                label: 'Reload Data',
+                click(){
+                    mainWindow.webContents.send('watchlist:reload')
+                }
+            },
+            {
                 label: 'Quit',
                 accelerator: process.platform == 'darwin' ? 'Command+Q' : 
                 'Ctrl+Q',
@@ -128,7 +134,7 @@ if(process.env.NODE_ENV !== 'production'){
                 }
             },
             {
-                role: 'reload'
+                role: 'Reload'
             }
         ]
     });

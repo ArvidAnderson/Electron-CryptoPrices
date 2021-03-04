@@ -1,0 +1,8 @@
+const cryptoText = document.createTextNode(crypto);
+//Adding the price using the API from crypto_api_js
+callAPI('USD', crypto).then(result => {
+    const cryptoPrice = document.createTextNode(result)
+    li.appendChild(cryptoPrice);
+});
+li.appendChild(cryptoText);
+ul.appendChild(li);
