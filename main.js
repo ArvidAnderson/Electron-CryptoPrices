@@ -105,7 +105,7 @@ const mainMenuTemplate = [
             {
                 label: 'Reload watchlist',
                 click(){
-                    mainWindow.webContents.send('watchlist:reload')
+                    
                 }
             },
             {

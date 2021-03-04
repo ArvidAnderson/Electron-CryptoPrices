@@ -10,23 +10,25 @@ for (const i in database_object) {
     ul.className = 'no-collection-border collection';
     const li = document.createElement('li');
     li.className = 'custom-li collection-item';
+    callAPI('USD', i).then(result => {
     li.innerHTML = `
     <div class='row crypto-in-watchlist'>
         <div class="col s6">
-            <h4 class='crypto-name'>${name}</h4><h5 class="crypto-price">${price}</h5>
+            <h4 class='crypto-name'>${name}</h4><h5 class="crypto-price">${result}</h5>
         </div>
         <div class="col s6">
             <img class="right" src="assets/cryptoicons/white/${i}.png" alt="">
         </div> 
     </div>`
+    })
     ul.appendChild(li);
-}
+};
 
 
 
 //Add to database
-function appendtoDatabase(crypto_name, crypto, result) {
-    store.set(crypto, {name: crypto_name, img: crypto, price: result
+function appendtoDatabase(crypto_name, crypto) {
+    store.set(crypto, {name: crypto_name, img: crypto
     });
 }
 
