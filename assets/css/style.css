@@ -1,5 +1,6 @@
 body {
     background-color: rgb(28, 28, 30);
+    user-select: none;
 }
 
 .custom-header {
