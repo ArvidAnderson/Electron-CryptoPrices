@@ -114,7 +114,6 @@ const mainMenuTemplate = [
 //    mainMenuTemplate.unshift({});
 //}
 
-
 // Adding Developer tools item not in production moe
 if(process.env.NODE_ENV !== 'production'){
     mainMenuTemplate.push({

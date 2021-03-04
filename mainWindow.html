@@ -14,13 +14,31 @@
         const electron = require('electron');
         const {ipcRenderer} = electron;
         const ul = document.querySelector('ul');
+        let price = require('crypto-price')
+        const CoinGecko = require('coingecko-api');
+        const CoinGeckoClient = new CoinGecko();
+
+        //Crypto API
+        function callAPI(currency, crypto) {
+            price.getCryptoPrice(currency, crypto).then(obj => { // Base for ex - USD, Crypto for ex - ETH 
+                console.log(obj.price);
+            }).catch(err => {
+                console.log(err)
+            })
+        }
+
+        console.log(callAPI('USD','ETH'));
+        console.log(hello());
+
         //Catch add crypto
         ipcRenderer.on('crypto:add', function(e, crypto){
             ul.className = 'no-collection-border collection';
             const li = document.createElement('li');
             li.className = 'custom-li collection-item';
             const cryptoText = document.createTextNode(crypto);
+            const cryptoPrice = document.createTextNode(callAPI('USD', ''))
             li.appendChild(cryptoText);
+            li.appendChild(cryptoPrice);
             ul.appendChild(li);
         });
 
