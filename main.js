@@ -25,7 +25,7 @@ app.on('ready', function(){
         webPreferences: {
             enableRemoteModule: true, //Need to be enabled for custom navbar to work
             contextIsolation: false,
-            nodeIntegration:true
+            nodeIntegration: true
         }
     });
     //Loading the html file
