@@ -1,5 +1,5 @@
 {
-  "name": "electron-cryptoprices",
+  "name": "glanze-at-crypto",
   "version": "1.0.0",
   "description": "An Electron app made for you to easily have a glance at the current crypto prices",
   "main": "main.js",
@@ -17,13 +17,9 @@
   },
   "homepage": "https://github.com/ArvidAnderson/Electron-CryptoPrices#readme",
   "dependencies": {
-    "ajv": "^7.1.1",
-    "coingecko-api": "^1.0.10",
     "crypto-price": "0.0.6",
     "custom-electron-titlebar": "^3.2.6",
     "electron": "^12.0.0",
-    "electron-reload": "^1.5.0",
-    "electron-store": "^7.0.2",
-    "nedb-promises": "^4.1.1"
+    "electron-store": "^7.0.2"
   }
 }
