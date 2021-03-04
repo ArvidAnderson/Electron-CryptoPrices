@@ -10,6 +10,10 @@
 </head>
 
 <body>
+    <div class="row">
+        <div class="col s1">1</div>
+        <div class="col s1">2</div>
+    </div>
     <!-- List where crypto adds with the functions below-->
     <ul></ul>
     <script>        
@@ -24,7 +28,8 @@
             li.className = 'custom-li collection-item';
             //Adding the price using the API from crypto_api_js
             callAPI('USD', crypto).then(result => {
-                li.innerHTML = (`<div class='crypto-in-watchlist'><h4>${crypto_names(crypto)}</h4><h5>$${result}</h5></div>`);
+                li.innerHTML = (`<div class='crypto-in-watchlist'><h4>${crypto_names(crypto)}</h4><h5>$${result}</h5> 
+                    <img src="assets/cryptoicons/white/${crypto}.png" alt=""> </div>`);
             });
             ul.appendChild(li);
         });
