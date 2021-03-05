@@ -6,11 +6,11 @@ const path = require('path');
 const Store = require('electron-store');
 Store.initRenderer()
 
-
-const {app, BrowserWindow, Menu, ipcMain} = electron;
-
 //SET ENV : production or sandbox
 process.env.NODE_ENV = 'sandbox';
+
+//Initilizing Electron
+const {app, BrowserWindow, Menu, ipcMain} = electron;
 
 let mainWindow;
 let addWindow;
@@ -35,8 +35,8 @@ app.on('ready', function(){
         slashes: true
     }));
     // Quit app when closed
-    mainWindow.on('closed', function(){
-        app.quit();
+    mainWindow.on('close', function (event) {
+        app.quit()
     });
 
     //Build menu from template
@@ -52,7 +52,7 @@ function createAddWindow() {
         width: 300,
         height: 200,
         title:'Add Crypto',
-        resizable: false,
+        resizable: true,
         frame: false, // Removes the frame
         autoHideMenuBar: true, // Auto hides menu bar for mac os
         webPreferences: {
@@ -105,7 +105,7 @@ const mainMenuTemplate = [
             {
                 label: 'Reload watchlist',
                 click(){
-                    mainWindow.webContents.send('watchlist:reload')
+                    mainWindow.webContents.send('watchlist:reload');
                 }
             },
             {

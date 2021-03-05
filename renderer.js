@@ -14,7 +14,7 @@ for (const i in database_object) {
     li.innerHTML = `
     <div class='row crypto-in-watchlist'>
         <div class="col s6">
-            <h4>${name}</h4><h5>${result}</h5>
+            <h4>${name}</h4><h5>$${result}</h5>
         </div>
         <div class="col s6">
             <img class="right" src="assets/cryptoicons/white/${i}.png" alt="">
@@ -32,35 +32,59 @@ function appendtoDatabase(crypto_name, crypto) {
 
 //Catch add crypto - On add
 ipcRenderer.on('crypto:add', function(e, crypto){
-    ul.className = 'no-collection-border collection';
-    const li = document.createElement('li');
-    li.className = 'custom-li collection-item';
-    //Adding the price using the API from crypto_api_js
-    callAPI('USD', crypto).then(result => {
-        li.innerHTML = (`
-        <div class='row crypto-in-watchlist'>
-            <div class="col s6">
-                <h4>${crypto_names(crypto)}</h4><h5>$${result}</h5>
-            </div>
-            <div class="col s6">
-                <img class="right" src="assets/cryptoicons/white/${crypto}.png" alt="">
-            </div> 
-        </div>`);
-        appendtoDatabase(crypto_names(crypto), crypto);
-    });
-    ul.appendChild(li);
+    if (crypto in store.get()) {
+        console.log("Alredy in list")
+    } else {
+        ul.className = 'no-collection-border collection';
+        const li = document.createElement('li');
+        li.className = 'custom-li collection-item';
+        //Adding the price using the API from crypto_api_js
+        callAPI('USD', crypto).then(result => {
+            li.innerHTML = (`
+            <div class='row crypto-in-watchlist'>
+                <div class="col s6">
+                    <h4>${crypto_names(crypto)}</h4><h5>$${result}</h5>
+                </div>
+                <div class="col s6">
+                    <img class="right" src="assets/cryptoicons/white/${crypto}.png" alt="">
+                </div> 
+            </div>`);
+            appendtoDatabase(crypto_names(crypto), crypto);
+        });
+        ul.appendChild(li);
+    }
 });
 
 //Clear watchlist
 ipcRenderer.on('watchlist:clear', function(){
+    //Clears the database
     store.clear();
     ul.innerHTML = '';
-    if(ul.children.length == 0){
-        ul.className = '';
-    }
 });
 
-//Watchlist Reload prices
+
+//Reloading the watchlist
 ipcRenderer.on('watchlist:reload', function(){
-    print("GG")
+    console.log('Refreshing!')
+    ul.innerHTML = '';
+    database_object_refresh = store.get();
+    for (const i in database_object_refresh) {
+        const name = store.get(`${i}.name`)
+        const price = store.get(`${i}.price`)
+        ul.className = 'no-collection-border collection';
+        const li = document.createElement('li');
+        li.className = 'custom-li collection-item';
+        callAPI('USD', i).then(result => {
+        li.innerHTML = `
+        <div class='row crypto-in-watchlist'>
+            <div class="col s6">
+                <h4>${name}</h4><h5>$${result}</h5>
+            </div>
+            <div class="col s6">
+                <img class="right" src="assets/cryptoicons/white/${i}.png" alt="">
+            </div> 
+        </div>`
+        })
+        ul.appendChild(li);
+    };
 });

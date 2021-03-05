@@ -16,10 +16,6 @@ The application is following an "apple" color theme using the dark Blue and Grey
 
 ## TDL
 
-- Add refresh prices function, right now it's only refreshing prices on restart
-
-- Add tray icon
-
 - Add notifications
 
 - Full mac compatibility
