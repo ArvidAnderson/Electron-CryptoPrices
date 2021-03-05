@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="assets/css/materialize.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h4 style="display: block; font-size: small; color: white;">Are sure you want clear your watchlist?</h4>
+    </div>
+    <div class="container">
+        <button class="custom-add-button btn waves-effect waves-light" onclick="yesWindow()" id="yes">Yes</button>
+        <button style="background-color: red;" class="custom-add-button btn waves-effect waves-light" onclick="exitWindow()">No</button>
+    </div>
+    <script>
+        const electron = require('electron');
+        const {ipcRenderer} = electron;
+        function exitWindow(){
+            ipcRenderer.send('clearWindow:close');
+        }
+        function yesWindow(){
+            ipcRenderer.send('clearWindow:yes');
+        }
+        // Clear on enter
+        document.querySelector("body").addEventListener("keyup", event => {
+            if(event.key !== "Enter") return;
+            document.querySelector("#yes").click();
+            event.preventDefault();
+        });
+    </script>
+    <script>
+        // Custom navbar
+        const customTitlebar = require('custom-electron-titlebar');
+        new customTitlebar.Titlebar({
+            backgroundColor: customTitlebar.Color.fromHex('#0a84ff'),
+            menu: false,
+            minimizable: false,
+            maximizable: false
+        });
+        titlebar.dispose();
+    </script>
+</body>
+</html>

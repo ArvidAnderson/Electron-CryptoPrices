@@ -14,6 +14,7 @@ const {app, BrowserWindow, Menu, ipcMain} = electron;
 
 let mainWindow;
 let addWindow;
+let clearWindow;
 
 // Listen for app to be ready, when the app is ready run function
 app.on('ready', function(){
@@ -82,6 +83,47 @@ ipcMain.on('crypto:add', function(e, crypto) {
     addWindow.close();
 });
 
+function createClearWindow() {
+    //Creating new addWindow
+    clearWindow = new BrowserWindow({
+        width: 300,
+        height: 150,
+        title:'Clear watchlist?',
+        resizable: true,
+        frame: false, // Removes the frame
+        autoHideMenuBar: true, // Auto hides menu bar for mac os
+        webPreferences: {
+            enableRemoteModule: true, //Need to be enabled for custom navbar to work
+            contextIsolation: false,
+            nodeIntegration:true
+        }
+    });
+    
+    //Turns off the menu bar for this specefic window
+    clearWindow.setMenuBarVisibility(true)
+    // Loading the html file
+    clearWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'clearWindow.html'),
+        protocol: 'file:',
+        slashes: true
+    }));
+    // Garbage Collection Handle
+    clearWindow.on('close', function(){
+        clearWindow = null;
+    });
+}
+
+// Catch clearWindow:close
+ipcMain.on('clearWindow:close', function(e) {
+    clearWindow.close();
+});
+ipcMain.on('clearWindow:yes', function(e){
+    mainWindow.webContents.send('watchlist:clear');
+    clearWindow.close();
+});
+ 
+
+
 
 // Create menu template
 const mainMenuTemplate = [
@@ -98,12 +140,16 @@ const mainMenuTemplate = [
             },
             {
                 label: 'Clear watchlist',
+                accelerator: process.platform == 'darwin' ? 'Command+E' : 
+                'Ctrl+E',
                 click(){
-                    mainWindow.webContents.send('watchlist:clear');
+                    createClearWindow();
                 }
             },
             {
-                label: 'Reload watchlist',
+                label: 'Refresh prices',
+                accelerator: process.platform == 'darwin' ? 'Command+R' : 
+                'Ctrl+R',
                 click(){
                     mainWindow.webContents.send('watchlist:reload');
                 }
