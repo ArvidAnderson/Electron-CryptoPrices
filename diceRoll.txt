@@ -1,0 +1,3 @@
+Listan osorterad: [2, 6, 2, 4, 4, 6, 4, 4, 4, 6]
+Listan sorterad: [2, 2, 4, 4, 4, 4, 4, 6, 6, 6]
+Antal femmor: 0

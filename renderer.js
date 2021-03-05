@@ -34,6 +34,10 @@ function appendtoDatabase(crypto_name, crypto) {
 ipcRenderer.on('crypto:add', function(e, crypto){
     if (crypto in store.get()) {
         console.log("Alredy in list")
+        function yesWindow(){
+            ipcRenderer.send('alertWindow:open');
+        };
+        yesWindow();
     } else {
         ul.className = 'no-collection-border collection';
         const li = document.createElement('li');

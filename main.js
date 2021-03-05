@@ -15,6 +15,7 @@ const {app, BrowserWindow, Menu, ipcMain} = electron;
 let mainWindow;
 let addWindow;
 let clearWindow;
+let alertWindow;
 
 // Listen for app to be ready, when the app is ready run function
 app.on('ready', function(){
@@ -53,7 +54,7 @@ function createAddWindow() {
         width: 300,
         height: 200,
         title:'Add Crypto',
-        resizable: true,
+        resizable: false,
         frame: false, // Removes the frame
         autoHideMenuBar: true, // Auto hides menu bar for mac os
         webPreferences: {
@@ -84,12 +85,12 @@ ipcMain.on('crypto:add', function(e, crypto) {
 });
 
 function createClearWindow() {
-    //Creating new addWindow
+    //Creating new clearWindow
     clearWindow = new BrowserWindow({
         width: 300,
         height: 150,
-        title:'Clear watchlist?',
-        resizable: true,
+        title:'ALERT',
+        resizable: false,
         frame: false, // Removes the frame
         autoHideMenuBar: true, // Auto hides menu bar for mac os
         webPreferences: {
@@ -117,11 +118,58 @@ function createClearWindow() {
 ipcMain.on('clearWindow:close', function(e) {
     clearWindow.close();
 });
+
+// Catch clearWindow:yes
 ipcMain.on('clearWindow:yes', function(e){
     mainWindow.webContents.send('watchlist:clear');
     clearWindow.close();
 });
  
+
+function createAlertWindow() {
+    //Creating new alertWindow
+    alertWindow = new BrowserWindow({
+        width: 300,
+        height: 150,
+        title:'ALERT',
+        resizable: false,
+        frame: false, // Removes the frame
+        autoHideMenuBar: true, // Auto hides menu bar for mac os
+        webPreferences: {
+            enableRemoteModule: true, //Need to be enabled for custom navbar to work
+            contextIsolation: false,
+            nodeIntegration:true
+        }
+    });
+    
+    //Turns off the menu bar for this specefic window
+    alertWindow.setMenuBarVisibility(true)
+    // Loading the html file
+    alertWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'alertWindow.html'),
+        protocol: 'file:',
+        slashes: true
+    }));
+    // Garbage Collection Handle
+    alertWindow.on('close', function(){
+        alertWindow = null;
+    });
+}
+
+// Catch alertWindow:close
+ipcMain.on('alertWindow:close', function(e) {
+    alertWindow.close();
+});
+
+// Catch alertWindow:open
+ipcMain.on('alertWindow:open', function(e) {
+    createAlertWindow();
+});
+// Catch addWindow from alertwindow
+ipcMain.on('alertWindow:openadd', function(e) {
+    alertWindow.close();
+    createAddWindow();
+});
 
 
 
