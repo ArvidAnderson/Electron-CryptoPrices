@@ -4,7 +4,10 @@
   "description": "An Electron app made for you to easily have a glance at the current crypto prices",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds",
+    "package-win": "electron-packager . glanzeatcrypto --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"GlanceAtCrypto\"",    
+    "package-linux": "electron-packager . electron-tutorial-app --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/icons/png/1024x1024.png --prune=true --out=release-builds"
   },
   "repository": {
     "type": "git",
@@ -19,7 +22,11 @@
   "dependencies": {
     "crypto-price": "0.0.6",
     "custom-electron-titlebar": "^3.2.6",
-    "electron": "^12.0.0",
     "electron-store": "^7.0.2"
+  },
+  "devDependencies": {
+    "electron": "^12.0.0",
+    "electron-packager": "^15.2.0",
+    "electron-winstaller": "^5.0.0"
   }
 }
