@@ -1,6 +1,10 @@
 # Glanze @ Crypto
 
-This is small project is an application made for have a quick glanze at the crypto prices. You can select from different cryptos which then will be added to your watchlist. The application saves your added crypto to a json file using the [electron-store](https://github.com/sindresorhus/electron-store) module. The json file is located in your userdata directory for example on windows in your appdata folder. 
+This is small project is an application made for have a quick glanze at the crypto prices. You can select from different cryptos which then will be added to your watchlist. 
+
+## Storage/Database
+
+The application saves the cryptos you added to your watchlist to a json file using the [electron-store](https://github.com/sindresorhus/electron-store) module. The json file is located in your userdata directory for example on windows in your appdata folder. This acts as an local database.
 
 ## Security
 
@@ -20,6 +24,8 @@ The application is following an "apple" color theme using the dark Blue and Grey
 
 - Full mac compatibility
 
+- Build package for Windows and Mac
+
 ## Dependencies
 
 - crypto-price : 0.0.6
@@ -29,3 +35,25 @@ The application is following an "apple" color theme using the dark Blue and Grey
 - electron : ^12.0.0
 
 - electron-store : ^7.0.2
+
+## Structure
+
+```
+├── assets
+│   ├── cryptoicons
+│   │── css
+│   │── icons
+│   │── img
+├── node_modules
+│   ├── * (All node modules)
+├── addWindow.html
+├── crypto_api.js
+├── crypto_names.js
+├── main.js
+├── mainWindow.html
+├── package.json
+├── package-lock.json
+├── preload.js
+├── README-md
+└── renderer.js
+```
