@@ -12,7 +12,7 @@ This is by no mean the right way to create your application as it uses the old n
 
 ## Theme
 
-The application is following an "apple" color theme using the dark Blue and Grey6 palette [apple colors](https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/color/) rgb. [Conrad F](https://github.com/conradfogdestam) came up with this idea!
+The application is following an "apple" color theme using the dark Blue and Grey6 palette [apple colors](https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/color/) rgb. [Conrad F](https://github.com/conradfogdestam) came up with this idea of using these colors.
 
 ## TDL
 
