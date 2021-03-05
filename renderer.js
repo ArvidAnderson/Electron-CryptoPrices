@@ -31,7 +31,7 @@ function appendtoDatabase(crypto_name, crypto) {
 }
 
 //Catch add crypto - On add
-ipcRenderer.on('crypto:add', function(e, crypto){
+ipcRenderer.on('crypto:add', function(e, crypto, crypto_name){
     if (crypto in store.get()) {
         console.log("Alredy in list")
         function yesWindow(){
@@ -47,13 +47,13 @@ ipcRenderer.on('crypto:add', function(e, crypto){
             li.innerHTML = (`
             <div class='row crypto-in-watchlist'>
                 <div class="col s6">
-                    <h4>${crypto_names(crypto)}</h4><h5>$${result}</h5>
+                    <h4>${crypto_name}</h4><h5>$${result}</h5>
                 </div>
                 <div class="col s6">
                     <img class="right" src="assets/cryptoicons/white/${crypto}.png" alt="">
                 </div> 
             </div>`);
-            appendtoDatabase(crypto_names(crypto), crypto);
+            appendtoDatabase(crypto_name, crypto);
         });
         ul.appendChild(li);
     }

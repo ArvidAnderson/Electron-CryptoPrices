@@ -14,13 +14,13 @@
             <div class="input-field col s12">
                 <select class="browser-default" id="crypto" name="crypto">
                     <option disabled value="">Choose crypto</option>
-                    <option value="btc">Bitcoin</option>
-                    <option value="eth">Ethereum</option>
-                    <option value="xrp">Ripple</option>
-                    <option value="bch">Bitcoin Cash</option>
-                    <option value="ada">Cardano</option>
-                    <option value="ltc">Lightcoin</option>
-                    <option value="xlm">Stellar Lumens</option>
+                    <option value="btc, Bitcoin">Bitcoin</option>
+                    <option value="eth, Ethereum">Ethereum</option>
+                    <option value="xrp, Ripple">Ripple</option>
+                    <option value="bch, Bitcoin Cash">Bitcoin Cash</option>
+                    <option value="ada, Cardano">Cardano</option>
+                    <option value="ltc, Lightcoin">Lightcoin</option>
+                    <option value="xlm,Stellar Lumens">Stellar Lumens</option>
                 </select>
             </div>
             <button id="yes" class="custom-add-button btn waves-effect waves-light" type="submit">Add</button>
@@ -35,9 +35,12 @@
 
         function submitForm(e){
             e.preventDefault();
-            const crypto = document.querySelector('#crypto').value;
+            const value_selector = document.querySelector('#crypto').value;
+            const split = value_selector.split(",");
+            const crypto = split[0];
+            const crypto_name = split[1];
             ipcRenderer.send('check:exists', crypto);
-            ipcRenderer.send('crypto:add', crypto);
+            ipcRenderer.send('crypto:add', crypto, crypto_name);
         }
         
         // Add on enter

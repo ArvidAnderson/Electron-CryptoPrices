@@ -79,8 +79,8 @@ function createAddWindow() {
 }
 
 // Catch crypto:add
-ipcMain.on('crypto:add', function(e, crypto) {
-    mainWindow.webContents.send('crypto:add', crypto);
+ipcMain.on('crypto:add', function(e, crypto, crypto_name) {
+    mainWindow.webContents.send('crypto:add', crypto, crypto_name);
     addWindow.close();
 });
 
