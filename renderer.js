@@ -89,7 +89,7 @@ ipcRenderer.on('watchlist:reload', function(){
     };
 });
 
-//Use this later
+//Use this later to remove li (crypto) from the ul  remove(this)
 function remove(elem){
     elem.parentNode.removeChild(elem);
 }
