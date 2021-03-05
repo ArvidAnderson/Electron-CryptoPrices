@@ -88,3 +88,8 @@ ipcRenderer.on('watchlist:reload', function(){
         ul.appendChild(li);
     };
 });
+
+//Use this later
+function remove(elem){
+    elem.parentNode.removeChild(elem);
+}
