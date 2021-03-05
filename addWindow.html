@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Add Crypto to watch</title>
+    <title>Add a crypto to watch</title>
     <link rel="stylesheet" href="assets/css/materialize.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -29,13 +29,13 @@
     <script>
         const electron = require('electron');
         const {ipcRenderer} = electron;
-
         const form = document.querySelector('form');
         form.addEventListener('submit', submitForm);
 
         function submitForm(e){
             e.preventDefault();
             const crypto = document.querySelector('#crypto').value;
+            ipcRenderer.send('check:exists', crypto);
             ipcRenderer.send('crypto:add', crypto);
         }
     </script>
@@ -44,7 +44,10 @@
         const customTitlebar = require('custom-electron-titlebar');
 
         new customTitlebar.Titlebar({
-            backgroundColor: customTitlebar.Color.fromHex('#0a84ff')
+            backgroundColor: customTitlebar.Color.fromHex('#0a84ff'),
+            menu: false,
+            minimizable: false,
+            maximizable: false
         });
         titlebar.dispose();
 

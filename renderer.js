@@ -14,7 +14,7 @@ for (const i in database_object) {
     li.innerHTML = `
     <div class='row crypto-in-watchlist'>
         <div class="col s6">
-            <h4 class='crypto-name'>${name}</h4><h5 class="crypto-price">${result}</h5>
+            <h4>${name}</h4><h5>${result}</h5>
         </div>
         <div class="col s6">
             <img class="right" src="assets/cryptoicons/white/${i}.png" alt="">
@@ -24,16 +24,43 @@ for (const i in database_object) {
     ul.appendChild(li);
 };
 
-
-
 //Add to database
 function appendtoDatabase(crypto_name, crypto) {
     store.set(crypto, {name: crypto_name, img: crypto
     });
 }
 
+//Catch add crypto - On add
+ipcRenderer.on('crypto:add', function(e, crypto){
+    ul.className = 'no-collection-border collection';
+    const li = document.createElement('li');
+    li.className = 'custom-li collection-item';
+    //Adding the price using the API from crypto_api_js
+    callAPI('USD', crypto).then(result => {
+        li.innerHTML = (`
+        <div class='row crypto-in-watchlist'>
+            <div class="col s6">
+                <h4>${crypto_names(crypto)}</h4><h5>$${result}</h5>
+            </div>
+            <div class="col s6">
+                <img class="right" src="assets/cryptoicons/white/${crypto}.png" alt="">
+            </div> 
+        </div>`);
+        appendtoDatabase(crypto_names(crypto), crypto);
+    });
+    ul.appendChild(li);
+});
 
-//Clear whole config gets started from mainWindow.html
-function cleardatabase() {
+//Clear watchlist
+ipcRenderer.on('watchlist:clear', function(){
     store.clear();
-}
+    ul.innerHTML = '';
+    if(ul.children.length == 0){
+        ul.className = '';
+    }
+});
+
+//Watchlist Reload prices
+ipcRenderer.on('watchlist:reload', function(){
+    print("GG")
+});

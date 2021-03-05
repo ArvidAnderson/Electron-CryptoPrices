@@ -8,53 +8,14 @@
     <script src="crypto_api.js" type="text/javascript">//CRYPTO API</script>
     <script src="crypto_names.js" type="text/javascript">//CRYPTO FUNCTIONS</script> 
 </head>
-
 <body>
-    <!-- List where crypto adds with the functions below-->
+    <!-- All content adds to this ul-->
     <ul></ul>
     <script>        
         const electron = require('electron');
         const {ipcRenderer} = electron;
-
         const ul = document.querySelector('ul');
-        //Catch add crypto
-        ipcRenderer.on('crypto:add', function(e, crypto){
-            ul.className = 'no-collection-border collection';
-            const li = document.createElement('li');
-            li.className = 'custom-li collection-item';
-            //Adding the price using the API from crypto_api_js
-            callAPI('USD', crypto).then(result => {
-                li.innerHTML = (`
-                <div class='row crypto-in-watchlist'>
-                    <div class="col s6">
-                        <h4 class='crypto-name'>${crypto_names(crypto)}</h4><h5 class="${crypto}-price">$${result}</h5>
-                    </div>
-                    <div class="col s6">
-                        <img class="right" src="assets/cryptoicons/white/${crypto}.png" alt="">
-                    </div> 
-                </div>`);
-                appendtoDatabase(crypto_names(crypto), crypto);
-            });
-            ul.appendChild(li);
-        });
-
-        //Clear watchlist
-        ipcRenderer.on('watchlist:clear', function(){
-            cleardatabase(); //Belongs to renderer.js
-            ul.innerHTML = '';
-            if(ul.children.length == 0){
-                ul.className = '';
-            }
-        });
-
-        //Watchlist Reload prices
-        ipcRenderer.on('watchlist:reload', function(){
-            document.getElementsByClassName('.crypto-prices').innerHTML = 'Dankster';
-            console.log('GG')
-        });
-    </script>
-    <script src="renderer.js"></script>
-    <script>
+    
         // Custom navbar
         const customTitlebar = require('custom-electron-titlebar');
 
@@ -62,5 +23,6 @@
             backgroundColor: customTitlebar.Color.fromHex('#0a84ff')
         });
     </script>
+    <script src="renderer.js"></script>
 </body>
 </html>

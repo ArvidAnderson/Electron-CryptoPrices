@@ -52,6 +52,7 @@ function createAddWindow() {
         width: 300,
         height: 200,
         title:'Add Crypto',
+        resizable: false,
         frame: false, // Removes the frame
         autoHideMenuBar: true, // Auto hides menu bar for mac os
         webPreferences: {
@@ -77,7 +78,6 @@ function createAddWindow() {
 
 // Catch crypto:add
 ipcMain.on('crypto:add', function(e, crypto) {
-    console.log(crypto)
     mainWindow.webContents.send('crypto:add', crypto);
     addWindow.close();
 });
@@ -105,7 +105,7 @@ const mainMenuTemplate = [
             {
                 label: 'Reload watchlist',
                 click(){
-                    
+                    mainWindow.webContents.send('watchlist:reload')
                 }
             },
             {
