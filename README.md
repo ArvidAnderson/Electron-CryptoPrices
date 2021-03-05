@@ -14,7 +14,7 @@ This is by no mean the right way to create your application as it uses the old n
 
 The application is following an "apple" color theme using the dark Blue and Grey6 palette [apple colors](https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/color/) rgb. [Conrad F](https://github.com/conradfogdestam) came up with this idea of using these colors.
 
-I did use the [materializecss](https://materializecss.com/) frontend framework for the base styling because it's very friendly to work with.
+I did use the [materializecss](https://materializecss.com/) frontend framework for the base styling because it's very friendly aswell as responsive to work with.
 
 ## TDL
 
