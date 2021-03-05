@@ -17,11 +17,10 @@ The application is following an "apple" color theme using the dark Blue and Grey
 I did use the [materializecss](https://materializecss.com/) frontend framework for the base styling because it's very friendly aswell as responsive to work with.
 
 ## TDL
-
-- Add notifications
+- Add auto refresher
 
 - Full mac compatibility
-
+- 
 - Build package for Windows and Mac
 
 ## Dependencies
@@ -45,6 +44,7 @@ I did use the [materializecss](https://materializecss.com/) frontend framework f
 ├── node_modules
 │   ├── * (All node modules)
 ├── addWindow.html
+├── clearWindow.html
 ├── crypto_api.js
 ├── crypto_names.js
 ├── main.js
