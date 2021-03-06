@@ -2,38 +2,35 @@
 const Store = require('electron-store');
 const store = new Store();
 
-// Rendering on launch - Also looping though the database to gather the information to render
-database_object = store.get();
-for (const i in database_object) {
-    const name = store.get(`${i}.name`)
-    const price = store.get(`${i}.price`)
-    ul.className = 'no-collection-border collection';
-    const li = document.createElement('li');
-    li.className = 'custom-li collection-item';
-    callAPI('USD', i).then(result => {
-    li.innerHTML = `
-    <div class='row crypto-in-watchlist'>
-        <div class="col s6">
-            <h4>${name}</h4><h5>$${result}</h5>
-        </div>
-        <div class="col s6">
-            <img class="right" src="assets/cryptoicons/white/${i}.png" alt="">
-        </div> 
-    </div>`
-    })
-    ul.appendChild(li);
-};
+// Rendering on launch - Also looping though the database to gather the information to render, function located below
+renderWatchlist();
 
-//Add to database
-function appendtoDatabase(crypto_name, crypto) {
-    store.set(crypto, {name: crypto_name, img: crypto
-    });
+//This function grabs information from the database, call it to render
+function renderWatchlist() {
+    database_object = store.get();
+    for (const i in database_object) {
+        const name = store.get(`${i}.name`)
+        ul.className = 'no-collection-border collection';
+        const li = document.createElement('li');
+        li.className = 'custom-li collection-item';
+        callAPI('USD', i).then(result => {
+        li.innerHTML = `
+        <div class='row crypto-in-watchlist'>
+            <div class="col s6">
+                <h4>${name}</h4><h5>$${result}</h5>
+            </div>
+            <div class="col s6">
+                <img class="right" src="assets/cryptoicons/white/${i}.png" alt="">
+            </div> 
+        </div>`
+        })
+        ul.appendChild(li);
+    };
 }
 
 //Catch add crypto - On add
 ipcRenderer.on('crypto:add', function(e, crypto, crypto_name){
     if (crypto in store.get()) {
-        console.log("Alredy in list")
         function yesWindow(){
             ipcRenderer.send('alertWindow:open');
         };
@@ -59,41 +56,21 @@ ipcRenderer.on('crypto:add', function(e, crypto, crypto_name){
     }
 });
 
-//Clear watchlist
+//Add to the database
+function appendtoDatabase(crypto_name, crypto) {
+    store.set(crypto, {name: crypto_name, img: crypto
+    });
+}
+
+//Clear the watchlist
 ipcRenderer.on('watchlist:clear', function(){
     //Clears the database
     store.clear();
     ul.innerHTML = '';
 });
 
-
 //Reloading the watchlist
 ipcRenderer.on('watchlist:reload', function(){
-    console.log('Refreshing!')
     ul.innerHTML = '';
-    database_object_refresh = store.get();
-    for (const i in database_object_refresh) {
-        const name = store.get(`${i}.name`)
-        const price = store.get(`${i}.price`)
-        ul.className = 'no-collection-border collection';
-        const li = document.createElement('li');
-        li.className = 'custom-li collection-item';
-        callAPI('USD', i).then(result => {
-        li.innerHTML = `
-        <div class='row crypto-in-watchlist'>
-            <div class="col s6">
-                <h4>${name}</h4><h5>$${result}</h5>
-            </div>
-            <div class="col s6">
-                <img class="right" src="assets/cryptoicons/white/${i}.png" alt="">
-            </div> 
-        </div>`
-        })
-        ul.appendChild(li);
-    };
+    renderWatchlist();
 });
-
-//Use this later to remove li (crypto) from the ul  remove(this)
-function remove(elem){
-    elem.parentNode.removeChild(elem);
-}
