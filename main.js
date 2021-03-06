@@ -7,7 +7,7 @@ const Store = require('electron-store');
 Store.initRenderer()
 
 //SET ENV : production or sandbox
-process.env.NODE_ENV = 'sandbox';
+process.env.NODE_ENV = 'production';
 
 //Initilizing Electron
 const {app, BrowserWindow, Menu, ipcMain} = electron;
@@ -30,6 +30,7 @@ app.on('ready', function(){
             nodeIntegration: true
         }
     });
+    
     //Loading the html file
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'mainWindow.html'),
@@ -51,8 +52,8 @@ app.on('ready', function(){
 function createAddWindow() {
     //Creating new addWindow
     addWindow = new BrowserWindow({
-        width: 300,
-        height: 200,
+        width: 320,
+        height: 350,
         title:'Add Crypto',
         resizable: false,
         frame: false, // Removes the frame

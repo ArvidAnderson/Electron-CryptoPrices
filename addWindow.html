@@ -4,6 +4,11 @@
     <title></title>
     <link rel="stylesheet" href="assets/css/materialize.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <script>
+        window.$ = window.jQuery = require("jquery");
+        require('select2')();
+    </script>
+    <link href="assets/css/select2-materialize.css" rel="stylesheet" />
 </head>
 <body>
     <div class="container">
@@ -12,21 +17,42 @@
                 <label>Select a crypto to watch</label>
             </div>
             <div class="input-field col s12">
-                <select class="browser-default" id="crypto" name="crypto">
-                    <option disabled value="">Choose crypto</option>
-                    <option value="btc, Bitcoin">Bitcoin</option>
-                    <option value="eth, Ethereum">Ethereum</option>
-                    <option value="xrp, Ripple">Ripple</option>
-                    <option value="bch, Bitcoin Cash">Bitcoin Cash</option>
-                    <option value="ada, Cardano">Cardano</option>
-                    <option value="ltc, Lightcoin">Lightcoin</option>
+                <select class="crypto-search" id="crypto" name="crypto">
+                    <option value="btc,Bitcoin">Bitcoin</option>
+                    <option value="eth,Ethereum">Ethereum</option>
+                    <option value="xrp,Ripple">Ripple</option>
+                    <option value="bch,Bitcoin Cash">Bitcoin Cash</option>
+                    <option value="ada,Cardano">Cardano</option>
+                    <option value="ltc,Lightcoin">Lightcoin</option>
                     <option value="xlm,Stellar Lumens">Stellar Lumens</option>
+                    <option value="dot,Polkadot">Polkadot</option>
+                    <option value="uni,Uniswap">Uniswap</option>
+                    <option value="link,Chainlink">Chainlink</option>
+                    <option value="doge,Dodgecoin">Dodgecoin</option>
+                    <option value="xem,NEM">NEM</option>
+                    <option value="wbtc,Wrapped Bitcoin">Wrapped Bitcoin</option>
+                    <option value="aave,AAVE">AAVE</option>
+                    <option value="theta,THETA">THETA</option>
+                    <option value="atom,Cosmos">Cosmos</option>
+                    <option value="xmr,Monero">Monero</option>
+                    <option value="grt,The Graph">The Graph</option>
+                    <option value="lrc,Looping">Loopring</option>
+                    <option value="nu,NuCypher">NuCypher</option>
+                    <option value="eos,EOS">EOS</option>
+                    <option value="vet,VeChain">VeChain</option>
+                    <option value="mkr,Maker">Maker</option>
                 </select>
             </div>
             <button id="yes" class="custom-add-button btn waves-effect waves-light" type="submit">Add</button>
         </form>
     </div>
     <script>
+
+        //Select 2 search
+        $(document).ready(()=>{
+        $('.crypto-search').select2()
+        })
+        // Electron stuff
         const electron = require('electron');
         const {ipcRenderer} = electron;
         const form = document.querySelector('form');
