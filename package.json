@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ArvidAnderson/Electron-CryptoPrices.git"
+    "url": "git+https://github.com/ArvidAnderson/Glanze-At-Crypto.git"
   },
   "author": "Arvid Anderson",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ArvidAnderson/Electron-CryptoPrices/issues"
+    "url": "https://github.com/ArvidAnderson/Glanze-At-Crypto/issues"
   },
-  "homepage": "https://github.com/ArvidAnderson/Electron-CryptoPrices#readme",
+  "homepage": "https://github.com/ArvidAnderson/Glanze-At-Crypto#readme",
   "dependencies": {
     "crypto-price": "0.0.6",
     "custom-electron-titlebar": "^3.2.6",
@@ -29,6 +29,7 @@
   "devDependencies": {
     "electron": "^12.0.0",
     "electron-packager": "^15.2.0",
-    "electron-winstaller": "^5.0.0"
+    "electron-winstaller": "^5.0.0",
+    "electron-wix-msi": "^3.0.6"
   }
 }
