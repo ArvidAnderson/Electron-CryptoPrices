@@ -7,7 +7,7 @@ const Store = require('electron-store');
 Store.initRenderer()
 
 //SET ENV : production or sandbox
-process.env.NODE_ENV = 'production';
+process.env.NODE_ENV = 'sandbox';
 
 //Initilizing Electron
 const {app, BrowserWindow, Menu, ipcMain} = electron;
