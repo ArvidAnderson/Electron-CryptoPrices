@@ -8,7 +8,7 @@ const CoinGecko = require('coingecko-api');
 //2. Initiate the CoinGecko API Client
 const CoinGeckoClient = new CoinGecko();
 //Trying out new API comeback here
-CallApiPrice().then(result => {
+CallApiPrice('usd', 'bitcoin').then(result => {
     console.log(result)
 });
 
