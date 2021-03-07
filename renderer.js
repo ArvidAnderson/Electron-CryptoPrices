@@ -2,16 +2,6 @@
 const Store = require('electron-store');
 const store = new Store();
 
-//1. Import coingecko-api
-const CoinGecko = require('coingecko-api');
- 
-//2. Initiate the CoinGecko API Client
-const CoinGeckoClient = new CoinGecko();
-//Trying out new API comeback here
-CallApiPrice('usd', 'bitcoin').then(result => {
-    console.log(result)
-});
-
 // Rendering on launch - Also looping though the database to gather the information to render, function located below
 renderWatchlist();
 
