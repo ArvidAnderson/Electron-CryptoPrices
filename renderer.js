@@ -63,7 +63,7 @@ ipcRenderer.on('crypto:add', function(e, symbol, name){
             </div>`);
             appendtoDatabase(name, symbol);
         });
-        ul.appendChild(li);
+        ul.prepend(li)
     }
 });
 
