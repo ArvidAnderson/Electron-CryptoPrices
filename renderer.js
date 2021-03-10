@@ -4,6 +4,14 @@ const { watch } = require('original-fs');
 const Sortable = require('sortablejs');
 const store = new Store();
 
+
+//Makes sure watchlist_order always is on the top of the database
+if (store.has('watchlist_order')) {
+    console.log('gg')
+} else {
+    store.set('watchlist_order', 'empty')
+}
+
 // Rendering on launch - Also looping though the database to gather the information to render, function located below
 renderWatchlist();
 //Initate the sortable
