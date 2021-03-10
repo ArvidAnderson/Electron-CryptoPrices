@@ -21,6 +21,8 @@ I did use the [materializecss](https://materializecss.com/) frontend framework f
 ## TDL
 - Add auto refresher
 
+- Add option to remove specefic crypto on your watchlist
+
 - Full mac compatibility
 
 - Build package Mac
