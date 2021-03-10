@@ -82,12 +82,20 @@ ipcRenderer.on('watchlist:clear', function(){
 
 //Reloading the watchlist needs redo
 ipcRenderer.on('watchlist:reload', function(){
-    ul.innerHTML = '';
-    renderWatchlist();
+    console.log('Refreshing')
+    database_object = store.get();
+    for (const i in database_object) {
+        const symbol = i;
+        if (i == 'watchlist_order') {
+            //Do nothing
+        } else {
+            callAPI('USD', symbol).then(result => {
+                document.getElementsByClassName(`${symbol}`)[0].innerHTML = `$${result}`;
+            });
+    }};
 });
 
 function initiate_sortable() {
-    const Sortable = require('sortablejs');
     var el = document.getElementById('items');
     var sortable = Sortable.create(el, {
         animation: 600,
