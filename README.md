@@ -21,9 +21,11 @@ I did use the [materializecss](https://materializecss.com/) frontend framework f
 ## TDL
 - Add auto refresher
 
+- Add option to remove specefic crypto on your watchlist
+
 - Full mac compatibility
-- 
-- Build package for Windows and Mac
+
+- Build package Mac
 
 ## Dependencies
 
@@ -34,6 +36,12 @@ I did use the [materializecss](https://materializecss.com/) frontend framework f
 - electron : ^12.0.0
 
 - electron-store : ^7.0.2
+
+- jquery : ^3.6.0
+
+- select2 : ^4.1.0-rc.0
+
+- sortablejs : ^1.13.0
 
 ## Structure
 
