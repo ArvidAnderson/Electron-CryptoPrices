@@ -35,6 +35,12 @@ I did use the [materializecss](https://materializecss.com/) frontend framework f
 
 - electron-store : ^7.0.2
 
+- jquery : ^3.6.0
+
+- select2 : ^4.1.0-rc.0
+
+- sortablejs : ^1.13.0
+
 ## Structure
 
 ```
