@@ -23,7 +23,7 @@ I did use the [materializecss](https://materializecss.com/) frontend framework f
 
 - Full mac compatibility
 
-- Build package for Windows and Mac
+- Build package Mac
 
 ## Dependencies
 
