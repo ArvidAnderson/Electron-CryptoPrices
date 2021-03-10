@@ -63,10 +63,9 @@
             e.preventDefault();
             const value_selector = document.querySelector('#crypto').value;
             const split = value_selector.split(",");
-            const crypto = split[0];
-            const crypto_name = split[1];
-            ipcRenderer.send('check:exists', crypto);
-            ipcRenderer.send('crypto:add', crypto, crypto_name);
+            const symbol = split[0];
+            const name = split[1];
+            ipcRenderer.send('crypto:add', symbol, name);
         }
         
         // Add on enter

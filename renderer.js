@@ -1,32 +1,36 @@
 //Importing neccesary modules for the database
 const Store = require('electron-store');
 const { watch } = require('original-fs');
+const Sortable = require('sortablejs');
 const store = new Store();
 
 // Rendering on launch - Also looping though the database to gather the information to render, function located below
 renderWatchlist();
+//Initate the sortable
+initiate_sortable();
 
 //This function grabs information from the database, call it to render
 function renderWatchlist() {
+    ul.className = 'no-collection-border collection';
+    ul.id = 'items';
     database_object = store.get();
     for (const i in database_object) {
         if (i == 'watchlist_order') {
             //Do nothing
         } else {
+            const symbol = i;
             const name = store.get(`${i}.name`)
-            ul.className = 'no-collection-border collection';
-            ul.id = 'items';
             const li = document.createElement('li');
             li.className = 'custom-li collection-item';
             li.setAttribute('data-id', `${name}`)
-            callAPI('USD', i).then(result => {
+            callAPI('USD', symbol).then(result => {
             li.innerHTML = `
             <div class='row crypto-in-watchlist'>
                 <div class="col s6">
-                    <h4>${name}</h4><h5>$${result}</h5>
+                    <h4>${name}</h4><h5 class="${symbol}">$${result}</h5>
                 </div>
                 <div class="col s6">
-                    <img class="right" src="assets/cryptoicons/white/${i}.png" alt="">
+                    <img class="right" src="assets/cryptoicons/white/${symbol}.png" alt="">
                 </div> 
             </div>`
             })
@@ -35,8 +39,8 @@ function renderWatchlist() {
 }
 
 //Catch add crypto - On add
-ipcRenderer.on('crypto:add', function(e, crypto, crypto_name){
-    if (crypto in store.get()) {
+ipcRenderer.on('crypto:add', function(e, symbol, name){
+    if (symbol in store.get()) {
         function yesWindow(){
             ipcRenderer.send('alertWindow:open');
         };
@@ -45,27 +49,27 @@ ipcRenderer.on('crypto:add', function(e, crypto, crypto_name){
         ul.className = 'no-collection-border collection';
         const li = document.createElement('li');
         li.className = 'custom-li collection-item';
-        li.setAttribute('data-id', `${crypto_name}`)
+        li.setAttribute('data-id', `${name}`)
         //Adding the price using the API from crypto_api_js
-        callAPI('USD', crypto).then(result => {
+        callAPI('USD', symbol).then(result => {
             li.innerHTML = (`
             <div class='row crypto-in-watchlist'>
                 <div class="col s6">
-                    <h4>${crypto_name}</h4><h5>$${result}</h5>
+                    <h4>${name}</h4><h5>$${result}</h5>
                 </div>
                 <div class="col s6">
-                    <img class="right" src="assets/cryptoicons/white/${crypto}.png" alt="">
+                    <img class="right" src="assets/cryptoicons/white/${symbol}.png" alt="">
                 </div> 
             </div>`);
-            appendtoDatabase(crypto_name, crypto);
+            appendtoDatabase(name, symbol);
         });
         ul.appendChild(li);
     }
 });
 
 //Add to the database
-function appendtoDatabase(crypto_name, crypto) {
-    store.set(crypto, {name: crypto_name, img: crypto
+function appendtoDatabase(name, symbol) {
+    store.set(symbol, {name: name, img: symbol
     });
 }
 
@@ -76,36 +80,37 @@ ipcRenderer.on('watchlist:clear', function(){
     ul.innerHTML = '';
 });
 
-//Reloading the watchlist
+//Reloading the watchlist needs redo
 ipcRenderer.on('watchlist:reload', function(){
     ul.innerHTML = '';
     renderWatchlist();
 });
 
-const Sortable = require('sortablejs');
-var el = document.getElementById('items');
-var sortable = Sortable.create(el, {
-    animation: 600,
-    dataIdAttr: 'data-id',
-    group: 'watchlist_order',
-    store: {
-            /**
-             * Get the order of elements. Called once during initialization.
-             * @param   {Sortable}  sortable
-             * @returns {Array}
-             */
-            get: function (sortable) {
-                var order = store.get(sortable.options.group.name);
-                return order ? order.split('|') : [];
-            },
-
-            /**
-             * Save the order of elements. Called onEnd (when the item is dropped).
-             * @param {Sortable} sortable
-             */
-            set: function (sortable) {
-                var order = sortable.toArray();
-                store.set(sortable.options.group.name, order.join('|'));
-            }
-    }
-});
+function initiate_sortable() {
+    const Sortable = require('sortablejs');
+    var el = document.getElementById('items');
+    var sortable = Sortable.create(el, {
+        animation: 600,
+        dataIdAttr: 'data-id',
+        group: 'watchlist_order',
+        store: {
+                /**
+                 * Get the order of elements. Called once during initialization.
+                 * @param   {Sortable}  sortable
+                 * @returns {Array}
+                 */
+                get: function (sortable) {
+                    var order = store.get(sortable.options.group.name);
+                    return order ? order.split('|') : [];
+                },
+                /**
+                 * Save the order of elements. Called onEnd (when the item is dropped).
+                 * @param {Sortable} sortable
+                 */
+                set: function (sortable) {
+                    var order = sortable.toArray();
+                    store.set(sortable.options.group.name, order.join('|'));
+                }
+        }
+    });
+}
