@@ -6,16 +6,20 @@ const store = new Store();
 
 
 //Makes sure watchlist_order always is on the top of the database
-if (store.has('watchlist_order')) {
-    console.log('gg')
-} else {
-    store.set('watchlist_order', 'empty')
+function watchlist_order_exists() {
+    if (store.has('watchlist_order')) {
+        console.log('gg')
+    } else {
+        store.set('watchlist_order', 'empty')
+    }    
 }
 
 // Rendering on launch - Also looping though the database to gather the information to render, function located below
 renderWatchlist();
 //Initate the sortable
 initiate_sortable();
+//Runs watchlist_order_exists
+watchlist_order_exists();
 
 //This function grabs information from the database, call it to render
 function renderWatchlist() {
@@ -86,6 +90,7 @@ ipcRenderer.on('watchlist:clear', function(){
     //Clears the database
     store.clear();
     ul.innerHTML = '';
+    watchlist_order_exists();
 });
 
 //Reloading the watchlist needs redo
