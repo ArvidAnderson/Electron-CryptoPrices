@@ -22,7 +22,7 @@ I did use the [materializecss](https://materializecss.com/) frontend framework f
 - Add auto refresher
 
 - Full mac compatibility
-- 
+
 - Build package for Windows and Mac
 
 ## Dependencies
