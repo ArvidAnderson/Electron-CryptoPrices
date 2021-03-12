@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="assets/css/materialize.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h4 style="display: block; font-size: small; color: white;">Enable Auto-Updater</h4>
+    </div>
+    <div class="container">
+        <button class="custom-add-button btn waves-effect waves-light" onclick="closeWindow()" id="yes">YES</button>
+        <button class="custom-add-button btn waves-effect waves-light" onclick="closeWindow()" id="no">NO</button>
+    </div>
+    <script>
+        const electron = require('electron');
+        const {ipcRenderer} = electron;
+        function closeWindow(){
+            ipcRenderer.send('alertWindow:openadd');
+        }
+        // Clear on enter
+        document.querySelector("body").addEventListener("keyup", event => {
+            if(event.key !== "Enter") return;
+            document.querySelector("#yes").click();
+            event.preventDefault();
+        });
+
+        // Custom navbar
+        const customTitlebar = require('custom-electron-titlebar');
+        new customTitlebar.Titlebar({
+            backgroundColor: customTitlebar.Color.fromHex('#0a84ff'),
+            menu: false,
+            minimizable: false,
+            maximizable: false
+        });
+    </script>
+</body>
+</html>

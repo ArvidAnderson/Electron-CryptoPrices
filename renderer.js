@@ -9,7 +9,7 @@ const store = new Store();
 //Makes sure watchlist_order always is on the top of the database
 function watchlist_order_exists() {
     if (store.has('watchlist_order')) {
-        console.log('gg')
+        //Do nothing
     } else {
         store.set('watchlist_order', 'empty')
     }    
