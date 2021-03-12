@@ -7,7 +7,7 @@ const Store = require('electron-store');
 Store.initRenderer()
 
 //SET ENV : production or sandbox
-process.env.NODE_ENV = 'production';
+process.env.NODE_ENV = 'sandbox';
 
 //Initilizing Electron
 const {app, BrowserWindow, Menu, ipcMain} = electron;
@@ -24,6 +24,8 @@ app.on('ready', function(){
         title:'GLANCE @ CRYPTO™️',
         frame: false, // Removes the frame
         autoHideMenuBar: true, // Auto hides menu bar for mac os
+        minWidth: 400,
+        minHeight: 500,
         webPreferences: {
             enableRemoteModule: true, //Need to be enabled for custom navbar to work
             contextIsolation: false,

@@ -1,5 +1,6 @@
 //Importing neccesary modules for the database
 const Store = require('electron-store');
+const { data } = require('jquery');
 const { watch } = require('original-fs');
 const Sortable = require('sortablejs');
 const store = new Store();
@@ -17,7 +18,34 @@ function watchlist_order_exists() {
 // Rendering on launch - Also looping though the database to gather the information to render, function located below
 renderWatchlist();
 //Initate the sortable
-initiate_sortable();
+var el = document.getElementById('items');
+var sortable = Sortable.create(el, {
+    animation: 600,
+    dataIdAttr: 'data-id',
+    group: 'watchlist_order',
+    store: {
+            /**
+             * Get the order of elements. Called once during initialization.
+             * @param   {Sortable}  sortable
+             * @returns {Array}
+             */
+            get: function (sortable) {
+                var order = store.get(sortable.options.group.name);
+                return order ? order.split('|') : [];
+            },
+            /**
+             * Save the order of elements. Called onEnd (when the item is dropped).
+             * @param {Sortable} sortable
+             */
+            set: function (sortable) {
+                var order = sortable.toArray();
+                console.log(order)
+                store.set(sortable.options.group.name, order.join('|'));
+            }
+    }
+});
+
+
 //Runs watchlist_order_exists
 watchlist_order_exists();
 
@@ -34,7 +62,7 @@ function renderWatchlist() {
             const name = store.get(`${i}.name`)
             const li = document.createElement('li');
             li.className = 'custom-li collection-item';
-            li.setAttribute('data-id', `${name}`)
+            li.setAttribute('data-id', `${symbol}`)
             callAPI('USD', symbol).then(result => {
             li.innerHTML = `
             <div class='row crypto-in-watchlist'>
@@ -61,7 +89,7 @@ ipcRenderer.on('crypto:add', function(e, symbol, name){
         ul.className = 'no-collection-border collection';
         const li = document.createElement('li');
         li.className = 'custom-li collection-item';
-        li.setAttribute('data-id', `${name}`)
+        li.setAttribute('data-id', `${symbol}`)
         //Adding the price using the API from crypto_api_js
         callAPI('USD', symbol).then(result => {
             li.innerHTML = (`
@@ -75,7 +103,11 @@ ipcRenderer.on('crypto:add', function(e, symbol, name){
             </div>`);
             appendtoDatabase(name, symbol);
         });
-        ul.prepend(li)
+        ul.prepend(li),
+        order = store.get(sortable.options.group.name);
+        order ? order.split('|') : [];
+        order = sortable.toArray();
+        store.set(sortable.options.group.name, order.join('|'));
     }
 });
 
@@ -93,7 +125,7 @@ ipcRenderer.on('watchlist:clear', function(){
     watchlist_order_exists();
 });
 
-//Reloading the watchlist needs redo
+//Reloading the watchlist
 ipcRenderer.on('watchlist:reload', function(){
     console.log('Refreshing')
     database_object = store.get();
@@ -108,30 +140,15 @@ ipcRenderer.on('watchlist:reload', function(){
     }};
 });
 
-function initiate_sortable() {
-    var el = document.getElementById('items');
-    var sortable = Sortable.create(el, {
-        animation: 600,
-        dataIdAttr: 'data-id',
-        group: 'watchlist_order',
-        store: {
-                /**
-                 * Get the order of elements. Called once during initialization.
-                 * @param   {Sortable}  sortable
-                 * @returns {Array}
-                 */
-                get: function (sortable) {
-                    var order = store.get(sortable.options.group.name);
-                    return order ? order.split('|') : [];
-                },
-                /**
-                 * Save the order of elements. Called onEnd (when the item is dropped).
-                 * @param {Sortable} sortable
-                 */
-                set: function (sortable) {
-                    var order = sortable.toArray();
-                    store.set(sortable.options.group.name, order.join('|'));
-                }
-        }
-    });
-}
+//Remove item on dbl click
+ul.addEventListener('dblclick', function(e) {
+    const li = e.target.closest('li');
+    const data_id = li.getAttribute('data-id')
+    li.parentElement.removeChild(li);
+    //Removing the crypto from the watchlist in database
+    store.delete(data_id);
+    order = store.get(sortable.options.group.name);
+    order ? order.split('|') : [];
+    order = sortable.toArray();
+    store.set(sortable.options.group.name, order.join('|'));
+})
