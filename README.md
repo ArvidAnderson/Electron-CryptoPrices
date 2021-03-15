@@ -19,9 +19,6 @@ Icons by [cryptoicons.co](http://cryptoicons.co/). The missing crypto icons was 
 I did use the [materializecss](https://materializecss.com/) frontend framework for the base styling because it's very friendly aswell as responsive to work with.
 
 ## TDL
-- Add auto refresher
-
-- Add option to remove specefic crypto on your watchlist
 
 - Full mac compatibility
 
@@ -54,6 +51,8 @@ I did use the [materializecss](https://materializecss.com/) frontend framework f
 ├── node_modules
 │   ├── * (All node modules)
 ├── addWindow.html
+├── alertWindow.html
+├── updateWindow.html
 ├── clearWindow.html
 ├── crypto_api.js
 ├── main.js
