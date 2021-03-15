@@ -130,7 +130,6 @@ setInterval(function(){ reloadWatchlist(); }, 40000);
 
 //Reload watchlist Function
 function reloadWatchlist() {
-    console.log("Auto Updating")
     for (const i in database_object) {
         const symbol = i;
         if (i == 'watchlist_order') {
@@ -144,7 +143,6 @@ function reloadWatchlist() {
 }
 //Catch reload watchlist
 ipcRenderer.on('watchlist:reload', function(){
-    console.log('Refreshing')
     reloadWatchlist();
 });
 
