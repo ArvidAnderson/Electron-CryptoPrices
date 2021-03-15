@@ -1,4 +1,4 @@
-# Glanze @ Crypto
+# Glanze At Crypto
 
 This is small project is an application made for have a quick glanze at the crypto prices. You can select from different cryptos which then will be added to your watchlist. 
 
