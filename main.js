@@ -7,7 +7,7 @@ const Store = require('electron-store');
 Store.initRenderer()
 
 //SET ENV : production or sandbox
-process.env.NODE_ENV = 'sandbox';
+process.env.NODE_ENV = 'production';
 
 //Initilizing Electron
 const {app, BrowserWindow, Menu, ipcMain} = electron;
@@ -33,7 +33,6 @@ app.on('ready', function(){
             nodeIntegration: true
         }
     });
-    
     //Loading the html file
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'mainWindow.html'),
@@ -247,9 +246,9 @@ const mainMenuTemplate = [
 ];
 
 //If on Mac, add an empty object to menu. [BUG FIX LATER]
-//if(process.platform == 'darwin'){
-//    mainMenuTemplate.unshift({});
-//}
+if (process.platform == 'darwin') {
+    mainMenuTemplate.unshift({label: ''});
+}
 
 // Adding Developer tools item not in production moe
 if(process.env.NODE_ENV !== 'production'){
