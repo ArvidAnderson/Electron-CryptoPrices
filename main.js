@@ -16,6 +16,7 @@ let mainWindow;
 let addWindow;
 let clearWindow;
 let alertWindow;
+let autoWindow;
 
 // Listen for app to be ready, when the app is ready run function
 app.on('ready', function(){
@@ -174,7 +175,35 @@ ipcMain.on('alertWindow:openadd', function(e) {
     createAddWindow();
 });
 
-
+function createAutoWindow() {
+    //Creating new autoWindow
+    autoWindow = new BrowserWindow({
+        width: 300,
+        height: 150,
+        title:'AUTO',
+        resizable: false,
+        frame: false, // Removes the frame
+        autoHideMenuBar: true, // Auto hides menu bar for mac os
+        webPreferences: {
+            enableRemoteModule: true, //Need to be enabled for custom navbar to work
+            contextIsolation: false,
+            nodeIntegration:true
+        }
+    });
+    
+    //Turns off the menu bar for this specefic window
+    autoWindow.setMenuBarVisibility(true)
+    // Loading the html file
+    autoWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'autoWindow.html'),
+        protocol: 'file:',
+        slashes: true
+    }));
+    // Garbage Collection Handle
+    autoWindow.on('close', function(){
+        autoWindow = null;
+    });
+}
 
 // Create menu template
 const mainMenuTemplate = [

@@ -125,19 +125,27 @@ ipcRenderer.on('watchlist:clear', function(){
     watchlist_order_exists();
 });
 
-//Reloading the watchlist
-ipcRenderer.on('watchlist:reload', function(){
-    console.log('Refreshing')
-    database_object = store.get();
+//Auto updating every 40000 ms
+setInterval(function(){ reloadWatchlist(); }, 40000);
+
+//Reload watchlist Function
+function reloadWatchlist() {
+    console.log("Auto Updating")
     for (const i in database_object) {
         const symbol = i;
         if (i == 'watchlist_order') {
             //Do nothing
         } else {
             callAPI('USD', symbol).then(result => {
+                console.log(result)
                 document.getElementsByClassName(`${symbol}`)[0].innerHTML = `$${result}`;
             });
     }};
+}
+//Catch reload watchlist
+ipcRenderer.on('watchlist:reload', function(){
+    console.log('Refreshing')
+    reloadWatchlist();
 });
 
 //Remove item on dbl click
